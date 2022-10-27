@@ -3,8 +3,6 @@
 #include <array>
 #include <vector>
 
-namespace Kochbuch{
-
 class Zutat {
     public:
     Zutat(std::string name_, double menge_, std::string einheit_)
@@ -46,16 +44,20 @@ class Kaesekuchen{
     }
 
     void get_info_boden(int anzahl_){
-        std::cout << "Benoetigte Zutaten für: " << anzahl_ << " Boden/Boeden." << "\n";
-        for(int i = 0 ; i < boden.size()  ; i++){
-            std::cout << boden[i].name + " " << anzahl_ * boden[i].menge << " " << boden[i].einheit + " " << "\n";
+        if(boden.size() != 0){
+            std::cout << "Benoetigte Zutaten für: " << anzahl_ << " Boden/Boeden." << "\n";
+            for(int i = 0 ; i < boden.size()  ; i++){
+                std::cout << boden[i].name + " " << anzahl_ * boden[i].menge << " " << boden[i].einheit + " " << "\n";
+            }
         }
     }
     void get_info_fuellung(int anzahl_){
-        std::cout << "Benötigte Zutaten für: " << anzahl_ << " Fuellung/Fuellungen." << "\n";
-        for(int i = 0 ; i < fuellung.size()  ; i++){
-            std::cout << fuellung[i].name + " " << anzahl_ * fuellung[i].menge << " " << fuellung[i].einheit + " " << "\n";
+        if(fuellung.size() != 0){
+            std::cout << "Benötigte Zutaten für: " << anzahl_ << " Fuellung/Fuellungen." << "\n";
+            for(int i = 0 ; i < fuellung.size()  ; i++){
+                std::cout << fuellung[i].name + " " << anzahl_ * fuellung[i].menge << " " << fuellung[i].einheit + " " << "\n";
         }
+    }
     }
 
     private:
@@ -66,18 +68,15 @@ class Kaesekuchen{
 
 };
 
-}
-
-
 int main(){
-    std::vector<Kochbuch::Zutat> boden{ {"kekse", 100 ,"gramm"},
+    std::vector<Zutat> boden{ {"kekse", 100 ,"gramm"},
                                         {"zucker", 100, "gramm"},
                                         {"butter", 100, "gramm"}};
 
-    std::vector<Kochbuch::Zubereitung_Zeit> zeiten_boden{ {"ruhezeit", 20, "min"},
+    std::vector<Zubereitung_Zeit> zeiten_boden{ {"ruhezeit", 20, "min"},
                                                           {"backzeit", 20, "min" }};
 
-    std::vector<Kochbuch::Zutat> fuellung{  {"mehl", 150 , "gramm"},
+    std::vector<Zutat> fuellung{  {"mehl", 150 , "gramm"},
                                             {"eier", 6 , "stück"},
                                             {"zucker", 200, "gramm"},
                                             {"frischkaese",150,"gramm"},
@@ -87,12 +86,14 @@ int main(){
                                             {"vanilleextrakt",1,"EL"},
                                             {"butter",2,"EL"}};
 
-    std::vector<Kochbuch::Zubereitung_Zeit> zeiten_fuellung{{"ruhezeit", 12, "stunden"},
+    std::vector<Zubereitung_Zeit> zeiten_fuellung{{"ruhezeit", 12, "stunden"},
                                                             {"backzeit", 30, "minuten"}};
 
 
-    Kochbuch::Kaesekuchen Classic{boden, fuellung, zeiten_boden, zeiten_fuellung};
-    Kochbuch::Kaesekuchen Classic_boden{boden, zeiten_boden};
+    Kaesekuchen Classic{boden, fuellung, zeiten_boden, zeiten_fuellung};
+    Kaesekuchen Classic_boden{boden, zeiten_boden};
     Classic.get_info_boden(2);
     Classic.get_info_fuellung(2);
+    Classic_boden.get_info_boden(1);
+    Classic_boden.get_info_fuellung(1);
 }
